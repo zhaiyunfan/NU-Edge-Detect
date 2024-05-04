@@ -34,31 +34,6 @@ logic signed [15:0] vertical_gradient_abs;
 logic [15:0] gradient_avg;
 logic [7:0] edge_strength; 
 
-// // shift
-// always_ff @(posedge clock or posedge reset) begin
-    
-//     integer i;
-//     integer j;
-//     if (reset) begin
-//         counter <= 0;
-//         for (i = 0; i < SIZE; ++i) begin
-//             register__array[i] <= 0;
-//         end
-//     end    
-//     else  begin
-//         if (!in_empty && shiftControl) begin
-//             counter <= counter + 1;
-//             for (j = SIZE-1; j > 0; j = j - 1) begin
-//                 register__array[j] <= register__array[j-1];
-//             end
-//             register__array[0] <= in_dout;
-//             // if (counter < 391325) begin
-//             //     $display("%u", register__array[0]);
-//             // end   
-//         end
-
-//     end
-// end
 
 
 always_ff @(posedge clock or posedge reset) begin
