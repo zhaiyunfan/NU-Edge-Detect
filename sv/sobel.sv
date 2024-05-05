@@ -58,11 +58,11 @@ always_comb begin
     sb_c = sb;
 
 
-    // 更新后的计算水平和垂直梯度代码，适应1443个元素的新结构
-    horizontal_gradient = register__array[2] + (2 * register__array[1]) + register__array[0]
-                        - register__array[1442] - (2 * register__array[1441]) - register__array[1440];
-    vertical_gradient = register__array[1440] + (2 * register__array[720]) + register__array[0]
-                    - register__array[1442] - (2 * register__array[722]) - register__array[2];
+    // 计算水平和垂直梯度代码，适应1443个元素的新结构
+    horizontal_gradient = register__array[2] + (register__array[1] + register__array[1]) + register__array[0]
+                        - register__array[1442] - (register__array[1441] + register__array[1441]) - register__array[1440];
+    vertical_gradient = register__array[1440] + (register__array[720] + register__array[720]) + register__array[0]
+                    - register__array[1442] - (register__array[722] + register__array[722]) - register__array[2];
 
 
     // 获取梯度的绝对值
@@ -72,6 +72,7 @@ always_comb begin
     // 计算梯度的绝对值平均，并限制结果在0到255之间，作为边缘强度
 
     gradient_avg = (horizontal_gradient_abs + vertical_gradient_abs) / 2;
+    //gradient_avg = (horizontal_gradient_abs + vertical_gradient_abs) >>> 1;
     edge_strength = gradient_avg > 255 ? 8'hFF : gradient_avg[7:0];
 
     paddingControl = (counter - 1) < 720 || ( counter - 720 - 1 )  >= 388080 || (counter - 1)  % 720 == 1 || (counter - 1) % 720 == 0;
